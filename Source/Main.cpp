@@ -1,18 +1,16 @@
-#include <raylib.h>
+#include "Game.h"
 
 int main(int argc, char *argv[]) {
-    //Window Size
-    constexpr Vector2 screenSize = {1280, 720};
+    
+    const RayEngine::GameSpec gameSpec{
+        .WindowTitle = "Ray", 
+        .WindowSize = {1280, 720}
+    };
 
-    //Initiation of the window
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow (screenSize.x, screenSize.y, "RayEngine");
-    while(!WindowShouldClose()){
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        EndDrawing();
-    }
-    CloseWindow();
+    RayEngine::Game game = RayEngine::Game();
+    game.Init(gameSpec);
+    game.Run();
+    game.Shutdown();
     
     return 0;
 }
