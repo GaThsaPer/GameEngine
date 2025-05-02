@@ -8,6 +8,15 @@ target_sources(${PROJECT_NAME} PRIVATE
         # ---
         "${SOURCE_DIR}/Game.cpp"
         "${SOURCE_DIR}/Game.h"
+
+        #Add animation class
+        "${SOURCE_DIR}/Visuals/AnimatedSprite.cpp"
+        "${SOURCE_DIR}/Visuals/AnimatedSprite.h"
+
+        #Add Input
+        "${SOURCE_DIR}/Input/Input.cpp"
+        "${SOURCE_DIR}/Input/Input.h"
+        "${SOURCE_DIR}/Input/InputCodes.h"
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} 
