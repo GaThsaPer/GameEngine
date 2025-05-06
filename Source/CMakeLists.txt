@@ -21,3 +21,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Lua_static
         sol2
 )
+
+# Sleep OpenGL on apple warnings (Apple thiks its outdated)
+add_definitions(-DGL_SILENCE_DEPRECATION)

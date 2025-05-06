@@ -1,6 +1,11 @@
 #pragma once
 
 #include <string>
+#if defined(__APPLE__)
+    #include <OpenGL/gl3.h>
+#else
+    #include <GL/glew.h>
+#endif
 #include "raylib.h"
 #include "Visuals/AnimatedSprite.h"
 #include "Input/Input.h"
@@ -17,12 +22,25 @@ namespace RayEngine{
             void Init(const GameSpec &gameSpec);
             void Run();
             void Shutdown();
+
+        private:
+            bool ShowFPS;
+            std::string FPSData;
+            int FPSDataSize;
+            int FramesCount;
+            double accumulatedTime;
+            double gpuTime;
+            
+            bool WindowResized;
+            int WindowSizeIndex;
         
         private:
             Shader m_GrayscaleShader;
+            Shader m_SwimmerShader;
             void Update(double deltaTime);
             void Render() const;
             void RenderUI(const Vector2 &screenSize) const;
+            GLuint gpuQueryID;
             bool m_Running;
             Texture2D m_Texture;
             Texture2D m_uni;

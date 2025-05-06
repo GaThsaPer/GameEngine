@@ -1,9 +1,16 @@
 #include "Game.h"
-
+/*
+    Wykład 1    (UNC)
+    Wykład 2    (C)
+    Wykład 3    (C)
+    Wykład 4    (C)
+    Wykład 5    (C)
+    Wykład 6    (UNC)
+*/
 int main(int argc, char *argv[]) {
     
     const RayEngine::GameSpec gameSpec{
-        .WindowTitle = "Ray", 
+        .WindowTitle = "GameEngine", 
         .WindowSize = {1280, 720}
     };
 
