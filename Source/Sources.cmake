@@ -6,6 +6,8 @@ target_sources(${PROJECT_NAME} PRIVATE
         # ${SOURCE_DIR}/Folder/Example.h
 
         # ---
+        "${SOURCE_DIR}/Context.h"
+
         "${SOURCE_DIR}/Game.cpp"
         "${SOURCE_DIR}/Game.h"
 
@@ -23,6 +25,16 @@ target_sources(${PROJECT_NAME} PRIVATE
         "${SOURCE_DIR}/Physics/Body.cpp"
         "${SOURCE_DIR}/Physics/Shapes.h"
         "${SOURCE_DIR}/Physics/Shapes.cpp"
+
+        #Add Game
+        "${SOURCE_DIR}/Game/Entity.cpp"
+        "${SOURCE_DIR}/Game/Entity.h"
+        "${SOURCE_DIR}/Game/Level.cpp"
+        "${SOURCE_DIR}/Game/Level.h"
+        "${SOURCE_DIR}/Game/LevelManager.cpp"
+        "${SOURCE_DIR}/Game/LevelManager.h"
+        "${SOURCE_DIR}/Game/World.cpp"
+        "${SOURCE_DIR}/Game/World.h"
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} 

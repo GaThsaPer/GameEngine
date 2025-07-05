@@ -1,0 +1,43 @@
+Date : 2025-07-05 14:14:04
+Directory : /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source
+Total : 14 files,  929 codes, 50 comments, 102 blanks, all 1081 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         12 |        881 |         50 |         91 |      1,022 |
+| CMake    |          2 |         48 |          0 |         11 |         59 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                   | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                      |         14 |        929 |         50 |        102 |      1,081 |
+| . (Files)                                                                                                                              |          5 |        460 |         38 |         52 |        550 |
+| Input                                                                                                                                  |          3 |        173 |          0 |         11 |        184 |
+| Physics                                                                                                                                |          4 |        185 |         12 |         31 |        228 |
+| Visuals                                                                                                                                |          2 |        111 |          0 |          8 |        119 |
++----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                               | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/CMakeLists.txt             | CMake    |         21 |          0 |          5 |         26 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.cpp                   | C++      |        333 |         27 |         27 |        387 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.h                     | C++      |         67 |          2 |         10 |         79 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/Input.cpp            | C++      |         41 |          0 |          5 |         46 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/Input.h              | C++      |         18 |          0 |          2 |         20 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/InputCodes.h         | C++      |        114 |          0 |          4 |        118 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Main.cpp                   | C++      |         12 |          9 |          4 |         25 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.cpp           | C++      |         56 |          0 |         10 |         66 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.h             | C++      |         28 |          0 |          4 |         32 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Shapes.cpp         | C++      |         50 |         12 |         12 |         74 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Shapes.h           | C++      |         51 |          0 |          5 |         56 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Sources.cmake              | CMake    |         27 |          0 |          6 |         33 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Visuals/AnimatedSprite.cpp | C++      |         67 |          0 |          6 |         73 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Visuals/AnimatedSprite.h   | C++      |         44 |          0 |          2 |         46 |
+| Total                                                                                                                                  |          |        929 |         50 |        102 |      1,081 |
++----------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

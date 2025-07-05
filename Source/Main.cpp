@@ -1,24 +1,11 @@
-#include "Game.h"
-/*
-    Wykład 1    (UNC)
-    Wykład 2    (C)
-    Wykład 3    (C)
-    Wykład 4    (C)
-    Wykład 5    (C)
-    Wykład 6    (UNC)
-    Wtkład 7    (UNC)
-*/
-int main(int argc, char *argv[]) {
-    
-    const RayEngine::GameSpec gameSpec{
-        .WindowTitle = "GameEngine", 
-        .WindowSize = {1280, 720}
-    };
+#include "UserGame.hpp"
 
-    RayEngine::Game game = RayEngine::Game();
-    game.Init(gameSpec);
-    game.Run();
-    game.Shutdown();
+
+int main(int argc, char *argv[]) {
+    RayEngine::Game *game = User_CreateGame();
+    game->Run();
+    game->Shutdown();
+    delete game;
     
     return 0;
 }

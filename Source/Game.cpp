@@ -1,104 +1,47 @@
 #include "Game.h"
 #include "raymath.h"
 
+RayEngine::Game::Game(): lvlManager(this) {}
+
 void RayEngine::Game::Init(const GameSpec &gameSpec){
     m_WindowSize = gameSpec.WindowSize;
-    const Vector2 screenHalfSize = m_WindowSize * 0.5f;
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(gameSpec.WindowSize.x, gameSpec.WindowSize.y, gameSpec.WindowTitle.c_str());
+    InitWindow(m_WindowSize.x, m_WindowSize.y, gameSpec.WindowTitle.c_str());
     InitAudioDevice();
+
+    //Resizing Screen
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     WindowResized = false;
     WindowSizeIndex = 0;
+    
+    const Vector2 screenHalfSize = m_WindowSize * 0.5f;
+    m_RenderCamera = {
+        .offset = screenHalfSize,
+        .target = {0.0f, 0.0f},
+        .rotation = 0.0f,
+        .zoom = 1.0f
+    };
 
+    bDebug = false;
+    RegisterLevels(levels);
+    if(!levels.empty()){
+        LoadLevel(levels.at(0).GetName());
+    }
+
+    //FPS Data
     ShowFPS = false;
     std::string FPSData = "FPS:\nCPU frame:\nGPU frame:";
     FPSDataSize = 12;
     FramesCount = 0;
     accumulatedTime = 0;
     gpuTime = 0;
-
-    // m_SwimmerCoord = m_WindowSize * 0.5f;
-    m_SwimmerCoord = {0,50};
-
-    //Physic
-    PhysicsBody.push_back(physic::PhysicBody());
-    PhysicsBody.at(0).SetCircleBody(10.0f);
-    PhysicsBody.at(0).SetPosition({0.0f, 0.0f});
-    PhysicsBody.push_back(physic::PhysicBody());
-    PhysicsBody.at(1).SetRectangleBody(166.0f * 3.0f, 78.0f * 3.0f);
-    PhysicsBody.at(1).SetPosition(m_SwimmerCoord);
-
-    //Textures
-    m_Texture = LoadTexture("../Data/Sprites/tf.png");
-    m_uni = LoadTexture("../Data/Sprites/wmii.png");
-    m_RenderCamera = {
-        .offset = screenHalfSize,
-        .target = {0.0f, 0.0f},
-        .rotation = 0.0f, 
-        .zoom = 1.0f
-    };
-    m_SwimmerTexture = LoadTexture("../Data/Sprites/swimmer.png");
-    m_SwimmerIdleAnimation = new AnimatedSprite(
-        m_SwimmerTexture,
-        {0.0f, 0.0f},
-        {166.0f, 78.0f},
-        {0.0f, 0.0f},
-        6,
-        1.0f/8.0f,
-        4,
-        0,
-        true
-    );
-    m_SwimmerIdleAnimation->Play();
-    m_SwimmerWalkAnimation = new AnimatedSprite(
-        m_SwimmerTexture,
-        {0.0f, 78.0f},
-        {166.0f, 78.0f},
-        {0.0f, 0.0f},                               // Był błędny parametr, ktory psol kierunek renderu
-        6,
-        1.0f/12.0f,
-        6,
-        0,
-        true
-    );
-    m_SwimmerWalkAnimation->Play();
-
-    
-    //Shaders
-    m_GrayscaleShader = LoadShader(
-        "../Data/Shaders/Grayscale.vs",
-        "../Data/Shaders/Grayscale.fs"
-    );
-    m_SwimmerShader = LoadShader(
-        "../Data/Shaders/SwimmerColor.vs",
-        "../Data/Shaders/SwimmerColor.fs"
-    );
-
-    //Sounds
-    m_ClickSound = LoadSound("../Data/Sounds/Cursor.mp3");
-    if(!IsSoundValid(m_ClickSound)){
-        std::cout << "Can't open file\n";
-    };
-
-    m_BackgroundMusic = LoadMusicStream("../Data/Sounds/Background.mp3");
-    if(!IsMusicValid(m_BackgroundMusic)){
-        std::cout << "Can't open music\n";
-    };
+    //Coord Data
+    coordText = "x: ____ y: ____";
 
     //GPU time calc
     glGenQueries(1, &gpuQueryID);
 }
 
 void RayEngine::Game::Shutdown(){
-    UnloadTexture(m_Texture);
-    UnloadTexture(m_uni);
-    UnloadTexture(m_SwimmerTexture);
-    UnloadShader(m_GrayscaleShader);
-    UnloadShader(m_SwimmerShader);
-    delete m_SwimmerIdleAnimation;
-    delete m_SwimmerWalkAnimation;
-    UnloadMusicStream(m_BackgroundMusic);
-    UnloadSound(m_ClickSound);
     CloseAudioDevice();
     CloseWindow();
 }
@@ -106,216 +49,97 @@ void RayEngine::Game::Shutdown(){
 void RayEngine::Game::Run(){
     m_Running = true;
     double deltaTime = 1.0f / 30.0f;
+    SetTargetFPS(60);
     while(m_Running && !WindowShouldClose()){
         glBeginQuery(GL_TIME_ELAPSED, gpuQueryID);
         const double frameStartTime = GetTime();
         m_Input.Handle(m_WindowSize);
-        Update(deltaTime);
+        UpdateContext updateContext = {
+            .bDebug = bDebug,
+            .DeltaTime = deltaTime,
+            .Input = &m_Input,
+            .LvlManager = &lvlManager,
+            .Camera = &m_RenderCamera
+        };
+        Update(updateContext);
         BeginDrawing();
         glViewport(0, 0, m_WindowSize.x, m_WindowSize.y);
-        ClearBackground(LIGHTGRAY);
+        Color c;
+        c.r = 220;
+        c.g = 220;
+        c.b = 220;
+        c.a = 255;
+        ClearBackground(c);
         const Vector2 ScreenHalfSize = m_WindowSize * 0.5f;
         m_RenderCamera.offset = ScreenHalfSize;
         BeginMode2D(m_RenderCamera);
-        Render();
+        RenderContext renderContext = {
+            .bDebug = bDebug,
+            .Camera = &m_RenderCamera
+        };
+        Render(renderContext);
         EndMode2D();
-        RenderUI(m_WindowSize);
+        RenderUiContext renderUIContext = {
+            .bDebug = bDebug,
+            .Camera = &m_RenderCamera,
+            .ScreenSize = m_WindowSize
+        };
+        RenderUI(renderUIContext);
         EndDrawing();
-        const double frameEndTime  = GetTime();
-        deltaTime = frameEndTime - frameStartTime;
-        deltaTime = std::min(deltaTime, 1.0/60.0f);
-        glEndQuery(GL_TIME_ELAPSED);
-
         // GPU frame calculate
         GLint64 gpuGetTime = 0;
         glGetQueryObjecti64v(gpuQueryID, GL_QUERY_RESULT, &gpuGetTime);
         gpuTime = gpuGetTime / 1e6;
-
+        //New Frame Calc
+        const double frameEndTime = GetTime();
+        deltaTime = frameEndTime - frameStartTime;
+        deltaTime = std::min(deltaTime, 1.0/60.0f);
+        glEndQuery(GL_TIME_ELAPSED);
+        if(bLevelChangeRequested){
+            bLevelChangeRequested = false;
+            LoadLevel(levelToLoad);
+        }
     }
 }
 
-void RayEngine::Game::Update(double deltaTime){
-    //Phisic
-    for(auto& body : PhysicsBody){
-        body.Update(deltaTime);
-        bool CollisionInfo = false;
-        for(auto& OtherBody : PhysicsBody){
-            if(body != OtherBody){
-                CollisionInfo = body.CheckCollision(OtherBody);
-            }
-            if(CollisionInfo){
-                body.HandleCollision(OtherBody);
-            }
-        }
-    }
-    //Mouse circle
-    m_CursorPosition = m_Input.GetCursorPosition();
-    m_cursorWorldPosition = m_Input.GetCursorWorldPosition(m_RenderCamera);
-
-    if(m_Input.GetMouseButton(MouseButton::Left, InputState::Pressed)){
-        m_MouseClickTimer = m_MouseClickDuration;
-        PlaySound(m_ClickSound);
-    }
-    if(m_MouseClickTimer > 0.0f){
-        m_MouseClickTimer -= deltaTime;
-    }
-    //Background Music
-    if(IsMusicStreamPlaying(m_BackgroundMusic)){
-        UpdateMusicStream(m_BackgroundMusic);
-    }
-    //F keys
+void RayEngine::Game::Update(const UpdateContext &context){
+    world.Update(context);
+    //F keys binds
     FKeysFunc();
-    if(m_Input.GetKey(KeyCode::LeftSuper, InputState::Held) && m_Input.GetKey(KeyCode::Up, InputState::Pressed)){
-        m_MusicVolume<1.0f?m_MusicVolume += 0.1f:m_MusicVolume;
-        SetMusicVolume(m_BackgroundMusic, m_MusicVolume);
-    };
-    if(m_Input.GetKey(KeyCode::LeftSuper, InputState::Held) && m_Input.GetKey(KeyCode::Down, InputState::Pressed)){
-        m_MusicVolume>0.0f?m_MusicVolume -= 0.1f:m_MusicVolume;
-        SetMusicVolume(m_BackgroundMusic, m_MusicVolume);
-    };
-    if(m_Input.GetKey(KeyCode::LeftAlt, InputState::Held) && m_Input.GetKey(KeyCode::Up, InputState::Pressed)){
-        m_MusicPitch += 0.1f;
-        SetMusicPitch(m_BackgroundMusic, m_MusicPitch);
-    }
-    if(m_Input.GetKey(KeyCode::LeftAlt, InputState::Held) && m_Input.GetKey(KeyCode::Down, InputState::Pressed)){
-        m_MusicPitch -= 0.1f;
-        SetMusicPitch(m_BackgroundMusic, m_MusicPitch);
-    }
-
     //Resize window
     if(IsWindowResized()){
         m_WindowSize = {(float)GetScreenWidth(), (float)GetScreenHeight()};
         WindowResized = true;
     }
-    //tf sprite rotate
-    m_SpriteRotation += 50.0f * deltaTime;
-    // m_RenderCamera.target = {0.0f, (float) ((std::cos(GetTime()) * 100.0f) * (-1) * M_PI)};
-    m_RenderCamera.target = {0.0f, 0.0f};
-    //Update for swimmer
-    m_SwimmerIdleAnimation->Update(deltaTime);
-    m_SwimmerWalkAnimation->Update(deltaTime);
-    //Swimmer Movement keys
-    SwimmerMovementUpdate(deltaTime);
     //FPS, CPU frame and GPU calculate
-    FPSDataCalc(deltaTime);
-
-    //Physic
-    PhysicsBody.at(0).SetPosition(m_CursorPosition * m_WindowSize);
-    PhysicsBody.at(1).SetPosition(m_SwimmerCoord);
+    FPSDataCalc(context.DeltaTime);
+    Camera2D &cameraHolder = *context.Camera;
+    coordText = "x: " + std::to_string(context.Input->GetCursorWorldPosition(cameraHolder).x) + " y: " + std::to_string(context.Input->GetCursorWorldPosition(cameraHolder).y);
 }
 
-void RayEngine::Game::Render() const{
-    
-    DrawLine(-1000.0f, 0.0f, 1000.0f, 0.0f, ColorAlpha(RED, 0.5f));
-    Color c;
-    c.r = 220;
-    c.g = 220;
-    c.b = 220;
-    c.a = 255;
-    DrawLine(0.0, -1000.0f, 0.0f, 1000.0f, ColorAlpha(WHITE, 0.5f));
-}
-
-void RayEngine::Game::RenderUI(const Vector2 &screenSize) const{
-    const Vector2 screenHalfSize = m_WindowSize * 0.5f;
-    //Text on screen render
-    const std::string txt = "Moj pierwszy silnik";
-    const int fontSize = 24;
-    const Vector2 txtSize = MeasureTextEx(
-        GetFontDefault(), txt.c_str(), fontSize, 2.0f
-    );
-    DrawText(
-        txt.c_str(),
-        screenHalfSize.x - txtSize.x * 0.5f,
-        50.0f,
-        fontSize, BLUE
-    );
-    //Data set for textures
-    const float textureWidth = (float) m_Texture.width;
-    const float textureHeight = (float) m_Texture.height;
-    const float txWid = (float) m_uni.width;
-    const float txHe = (float) m_uni.height;
-    const Rectangle sourceRect {0.0f, 0.0f, textureWidth, textureHeight};
-    const Rectangle uniRect {0.0f, 0.0f, txWid, txHe};
-    const Vector2 spriteSize = {100.0f, 100.0f};
-    const Rectangle destRect = {
-        screenHalfSize.x, screenHalfSize.y + 250.0f, 
-        spriteSize.x, spriteSize.y
-    };
-    const Rectangle dUni = {
-        screenHalfSize.x + 250.0f, screenHalfSize.y - 200.0f,
-        spriteSize.x, spriteSize.y
-    };
-    const Vector2 origin = {spriteSize.x * 0.5f, spriteSize.y *0.5f};
-
-    const Vector2 swimmerPosition = {0.0f, 0.0f};
-    const Vector2 swimmerScale = {3.0f, 3.0f};
-    const float swimmerRotation = 0.0f;
-    //Render tf texture
-    DrawTexturePro(m_Texture, sourceRect, destRect, origin, m_SpriteRotation, WHITE);
-    BeginShaderMode(m_GrayscaleShader);
-    DrawTexturePro(m_uni, uniRect, dUni, origin, 0, WHITE);
-    EndShaderMode();
-    //Render swimmer animation (while movement)
-    BeginShaderMode(m_SwimmerShader);
-    if(m_isSwimming)
-        m_SwimmerIdleAnimation->Render(m_SwimmerCoord, swimmerRotation, swimmerScale, m_issFlipped);
-    else
-        m_SwimmerWalkAnimation->Render(m_SwimmerCoord, swimmerRotation, swimmerScale, m_issFlipped);
-    EndShaderMode();
-    //Draw Circle on the coursor position
-    float circleRadius = 10.0f;
-    if(m_MouseClickTimer > 0.0f){
-        circleRadius += 3.5f * std::sin(3.14f *(1.0f - (m_MouseClickTimer /m_MouseClickDuration)));
+void RayEngine::Game::Render(const RenderContext &context) const{
+    if(context.bDebug){
+        DrawLine(-1000.0f, 0.0f, 1000.0f, 0.0f, ColorAlpha(RED, 0.5f));
+        DrawLine(0.0, -1000.0f, 0.0f, 1000.0f, ColorAlpha(WHITE, 0.5f));
     }
-    const Vector2 cursorScreenPosition = {m_CursorPosition.x * screenSize.x, m_CursorPosition.y * screenSize.y};
-    DrawCircle(cursorScreenPosition.x, cursorScreenPosition.y, circleRadius, ColorAlpha(GREEN, 0.3f)); //index 0
+    world.Render(context);
+}
+
+void RayEngine::Game::RenderUI(const RenderUiContext &context) const{
+    world.RenderUI(context);
     //Draw FPS, CPU and GPU stats
-    float  yMusicMove = 0;
     if(ShowFPS){
         const Vector2 textSize = MeasureTextEx(
             GetFontDefault(), FPSData.c_str(), FPSDataSize, 2.0f
         );
-        yMusicMove = textSize.y;
         DrawText(FPSData.c_str(), m_WindowSize.x - textSize.x + 13.0f, 5.0f, FPSDataSize, BLACK);
     }
-    //Music Data
-    char musicVolumeText[32];
-    snprintf(musicVolumeText, sizeof(musicVolumeText), "Volume: %2.1f", m_MusicVolume);
-    char musicPitchText[32];
-    snprintf(musicPitchText, sizeof(musicPitchText), "Pitch: %2.1f", m_MusicPitch);
-    const int musicVolumeFontSize = 15;
-    const Vector2 musicVolumeTextSize = MeasureTextEx(
-        GetFontDefault(), musicVolumeText, musicVolumeFontSize, 2.0f
-    );
-    
-    DrawText(
-        musicVolumeText,
-        m_WindowSize.x - musicVolumeTextSize.x,
-        musicVolumeTextSize.y + yMusicMove, 
-        musicVolumeFontSize, BLUE
-    );
-    DrawText(
-        musicPitchText,
-        m_WindowSize.x - musicVolumeTextSize.x,
-        2 * musicVolumeTextSize.y + yMusicMove, 
-        musicVolumeFontSize, GREEN
-    );
-
-    //Physic
-    for(auto &body : PhysicsBody){
-        body.RenderCollider();
-    }
+    const Vector2 coordSize = MeasureTextEx(
+        GetFontDefault(), coordText.c_str(), FPSDataSize, 2.0f);
+        DrawText(coordText.c_str(), 5.0f, context.ScreenSize.y - coordSize.y - 13.0f, FPSDataSize, BLACK);
 }
 
 void RayEngine::Game::FKeysFunc(){
-    if(m_Input.GetKey(KeyCode::F1, InputState::Pressed)){
-        if(IsMusicStreamPlaying(m_BackgroundMusic)){
-            StopMusicStream(m_BackgroundMusic);
-        }
-        else{
-            PlayMusicStream(m_BackgroundMusic);
-        }
-    }
     if(m_Input.GetKey(KeyCode::F3, InputState::Pressed)){
         ShowFPS = !ShowFPS;
     }
@@ -344,6 +168,9 @@ void RayEngine::Game::FKeysFunc(){
         }
         WindowResized = false;
     }
+    if(m_Input.GetKey(KeyCode::F10, InputState::Pressed)){
+        bDebug = !bDebug;
+    }
 }
 
 void RayEngine::Game::FPSDataCalc(const double deltaTime){
@@ -359,28 +186,23 @@ void RayEngine::Game::FPSDataCalc(const double deltaTime){
         }
     }
 }
-void RayEngine::Game::SwimmerMovementUpdate(const double deltaTime){
-    Vector2 movement = {0.0f, 0.0f};
-    if(m_Input.GetKey(KeyCode::D, InputState::Held)){
-        movement.x += 1.0f;
-        m_issFlipped = false;
+
+void RayEngine::Game::LoadLevel(const std::string &levelName){
+    world.Clear();
+    const Level *levelToLoad = nullptr;
+    for(auto &level : levels){
+        if(level.GetName() == levelName){
+            levelToLoad = &level;
+            break;
+        }
     }
-    if(m_Input.GetKey(KeyCode::A, InputState::Held)){
-        movement.x -= 1.0f;
-        m_issFlipped = true;
+    if(!levelToLoad){
+        throw std::runtime_error("\nFailed to load level " + levelName + '\n');
     }
-    if(Vector2Length(movement) == 0.0f){
-        m_SwimmerPosition += movement * 500 * (float)deltaTime;
-        m_isSwimming = true;
-        // m_isSwimming = movement.x < 0.0f;
-    }else{
-        m_isSwimming = false;
-    }
-    m_SwimmerCoord += movement;
-    if(m_Input.GetKey(KeyCode::A, InputState::Pressed) || m_Input.GetKey(KeyCode::D, InputState::Pressed)){
-        m_SwimmerWalkAnimation->Reset();
-    }
-    if(m_Input.GetKey(KeyCode::A, InputState::Pressed) || m_Input.GetKey(KeyCode::D, InputState::Pressed)){
-        m_SwimmerIdleAnimation->Reset();
-    }
+    world.LoadLevel(*levelToLoad);
 }
+void RayEngine::Game::RequestLevelChange(const std::string &levelName){
+    levelToLoad = levelName;
+    bLevelChangeRequested = true;
+}
+

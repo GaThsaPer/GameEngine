@@ -1,16 +1,16 @@
 #pragma once
 
-#include <string>
-#include <iostream>
 #if defined(__APPLE__)
     #include <OpenGL/gl3.h>
 #else
     #include <GL/glew.h>
 #endif
 #include "raylib.h"
-#include "Visuals/AnimatedSprite.h"
 #include "Input/Input.h"
-#include "Physics/Body.h"
+
+#include "Context.h"
+#include "Game/Level.h"
+#include "Game/World.h"
 
 namespace RayEngine{
 
@@ -20,12 +20,35 @@ namespace RayEngine{
     };
     class Game{
         public:
-            Game() = default;
+            Game();
             void Init(const GameSpec &gameSpec);
             void Run();
             void Shutdown();
+            void LoadLevel(const std::string &levelName);
+            void RequestLevelChange(const std::string &levelName);
 
-        //Methods
+        private:
+            void Update(const UpdateContext &context);
+            void Render(const RenderContext &context) const;
+            void RenderUI(const RenderUiContext &constext) const;
+
+        protected:
+            virtual void RegisterLevels(std::vector<Level> &outLevels) const = 0;
+
+        private:
+            bool m_Running;
+            Vector2 m_WindowSize;
+            Camera2D m_RenderCamera;
+            Input m_Input;
+            bool bDebug;
+            World world;
+            std::vector<Level> levels;
+            LevelManager lvlManager;
+            bool bLevelChangeRequested;
+            std::string levelToLoad;
+            Shader m_GrayscaleShader;
+            Shader m_SwimmerShader;
+
         private:
             bool ShowFPS;
             std::string FPSData;
@@ -33,47 +56,21 @@ namespace RayEngine{
             int FramesCount;
             double accumulatedTime;
             double gpuTime;
-            
-            bool WindowResized;
-            int WindowSizeIndex;
+            GLuint gpuQueryID;
+            std::string coordText;
 
+        //Methods
+        private:
             void FKeysFunc();
             void FPSDataCalc(const double deltaTime);
             void SwimmerMovementUpdate(const double deltaTime);
-        
-        //
+
         private:
-            std::vector<physic::PhysicBody> PhysicsBody;
-
-            Shader m_GrayscaleShader;
-            Shader m_SwimmerShader;
-            void Update(double deltaTime);
-            void Render() const;
-            void RenderUI(const Vector2 &screenSize) const;
-            GLuint gpuQueryID;
-            bool m_Running;
-            Texture2D m_Texture;
-            Texture2D m_uni;
-            Camera2D m_RenderCamera;
-            Input m_Input;
-            float m_SpriteRotation =0.0f;
-            Vector2 m_WindowSize;
-            Texture2D m_SwimmerTexture;
-            Vector2 m_SwimmerCoord;
-            RayEngine::AnimatedSprite *m_SwimmerIdleAnimation = nullptr;
-            RayEngine::AnimatedSprite *m_SwimmerWalkAnimation = nullptr;
-            Sound m_ClickSound;
-
-            Vector2 m_SwimmerPosition{0.0f, 0.0f};
-            bool m_isSwimming = false;
-            bool m_issFlipped = false;
+            bool WindowResized;
+            int WindowSizeIndex;
             Vector2 m_cursorWorldPosition;
             Vector2 m_CursorPosition;
-            double m_MouseClickTimer = 0.0f;
-            double m_MouseClickDuration = 0.3f;
-
-            Music m_BackgroundMusic;
-            float m_MusicVolume = 1.0f;
-            float m_MusicPitch = 1.0f;
     };
 }
+
+RayEngine::Game *User_CreateGame();
