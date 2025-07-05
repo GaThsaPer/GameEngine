@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #if defined(__APPLE__)
     #include <OpenGL/gl3.h>
 #else
@@ -9,6 +10,7 @@
 #include "raylib.h"
 #include "Visuals/AnimatedSprite.h"
 #include "Input/Input.h"
+#include "Physics/Body.h"
 
 namespace RayEngine{
 
@@ -23,6 +25,7 @@ namespace RayEngine{
             void Run();
             void Shutdown();
 
+        //Methods
         private:
             bool ShowFPS;
             std::string FPSData;
@@ -33,8 +36,15 @@ namespace RayEngine{
             
             bool WindowResized;
             int WindowSizeIndex;
+
+            void FKeysFunc();
+            void FPSDataCalc(const double deltaTime);
+            void SwimmerMovementUpdate(const double deltaTime);
         
+        //
         private:
+            std::vector<physic::PhysicBody> PhysicsBody;
+
             Shader m_GrayscaleShader;
             Shader m_SwimmerShader;
             void Update(double deltaTime);
@@ -52,8 +62,8 @@ namespace RayEngine{
             Vector2 m_SwimmerCoord;
             RayEngine::AnimatedSprite *m_SwimmerIdleAnimation = nullptr;
             RayEngine::AnimatedSprite *m_SwimmerWalkAnimation = nullptr;
+            Sound m_ClickSound;
 
-        private:
             Vector2 m_SwimmerPosition{0.0f, 0.0f};
             bool m_isSwimming = false;
             bool m_issFlipped = false;
@@ -61,5 +71,9 @@ namespace RayEngine{
             Vector2 m_CursorPosition;
             double m_MouseClickTimer = 0.0f;
             double m_MouseClickDuration = 0.3f;
+
+            Music m_BackgroundMusic;
+            float m_MusicVolume = 1.0f;
+            float m_MusicPitch = 1.0f;
     };
 }

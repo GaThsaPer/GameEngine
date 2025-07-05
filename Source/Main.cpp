@@ -6,6 +6,7 @@
     Wykład 4    (C)
     Wykład 5    (C)
     Wykład 6    (UNC)
+    Wtkład 7    (UNC)
 */
 int main(int argc, char *argv[]) {
     

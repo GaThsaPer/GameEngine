@@ -17,6 +17,12 @@ target_sources(${PROJECT_NAME} PRIVATE
         "${SOURCE_DIR}/Input/Input.cpp"
         "${SOURCE_DIR}/Input/Input.h"
         "${SOURCE_DIR}/Input/InputCodes.h"
+
+        #Add Physic
+        "${SOURCE_DIR}/Physics/Body.h"
+        "${SOURCE_DIR}/Physics/Body.cpp"
+        "${SOURCE_DIR}/Physics/Shapes.h"
+        "${SOURCE_DIR}/Physics/Shapes.cpp"
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} 
