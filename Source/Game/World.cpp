@@ -1,4 +1,5 @@
 #include "World.h"
+#include <iostream>
 
 void RayEngine::World::LoadLevel(const Level &level){
     level.LoadInto(*this);
@@ -8,7 +9,7 @@ void RayEngine::World::Spawn(const Entity &entity){
     Entities.push_back(entity);
     Entity &newEntity = Entities.back();
     LastEntityID++;
-    newEntity.SetIT(LastEntityID);
+    newEntity.SetID(LastEntityID);
     newEntity.Start();
 }
 
@@ -25,6 +26,7 @@ void RayEngine::World::Update(const UpdateContext &context){
             entity.Update(context);
         }
     }
+    
     for(int i = Entities.size() - 1; i >= 0; i--){
         if(Entities.at(i).MarkedDorDestruction()){
             Entities.erase(Entities.begin() + i);

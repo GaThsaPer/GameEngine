@@ -1,5 +1,7 @@
 #pragma once
 #include "Game.h"
+#include "Game/Components/SpriteComponent.hpp"
+#include "Game/Components/SpinComponent.hpp"
 
 class UserGame : public RayEngine::Game{
     protected:
@@ -8,28 +10,22 @@ class UserGame : public RayEngine::Game{
             .WithEntity(
                 RayEngine::Entity("Object 1")
                 .WithPosition(Vector2{50.0f, 100.0f})
-            )
-            .WithEntity(
-                RayEngine::Entity("Object 2")
-                .WithRotation(45.0f)
-            )
-            .WithEntity(
-                RayEngine::Entity("Object 3")
-                .WithPosition(Vector2{-50.0f, -50.0f})
-                .WithRotation(-30.0f)
-                .WithScale(Vector2{2.0f, 3.0f})
+                .WithScale(Vector2{100.0f, 100.0f})
+                .WithComponent(new SpriteComponent("../Data/Sprites/wmii.png", RED))
+                .WithComponent(new SpinComponent(70.0f))
             );
-
-            auto level2 = RayEngine::Level::Create("Level 2")
-            .WithEntity(
-                RayEngine::Entity("Object 1")
-                .WithPosition(Vector2{0.0f, 0.0f})
-                .WithRotation(0.0f)
-                .WithScale(Vector2{5.0f, 5.0f})
-            );
+            // .WithEntity(
+            //     RayEngine::Entity("Object 2")
+            //     .WithRotation(45.0f)
+            // )
+            // .WithEntity(
+            //     RayEngine::Entity("Object 3")
+            //     .WithPosition(Vector2{-50.0f, -50.0f})
+            //     .WithRotation(-30.0f)
+            //     .WithScale(Vector2{2.0f, 3.0f})
+            // );
 
             outLevels.emplace_back(level1);
-            outLevels.emplace_back(level2);
         }
 };
 

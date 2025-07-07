@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Level.h"
+#include "../Physics/Body.h"
 
 namespace RayEngine{
     class World{
@@ -15,5 +16,6 @@ namespace RayEngine{
         private:
             int LastEntityID = 0;
             std::vector<Entity> Entities;
+            std::vector<physic::PhysicBody> colliders;
     };
 }

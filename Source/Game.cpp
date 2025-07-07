@@ -23,6 +23,7 @@ void RayEngine::Game::Init(const GameSpec &gameSpec){
 
     bDebug = false;
     RegisterLevels(levels);
+    std::cout << "\nSize of levels in Game.h: " << levels.size() << " levels\n\n";
     if(!levels.empty()){
         LoadLevel(levels.at(0).GetName());
     }

@@ -14,6 +14,10 @@ RayEngine::Entity &RayEngine::Entity::operator=(const Entity &other){
     fRotation = other.fRotation;
     vScale = other.vScale;
     bDestroyed = other.bDestroyed;
+    Components.clear();
+    for(auto *component : other.Components){
+        AddComponent(component->Clone());
+    }
     return *this;
 }
 
@@ -32,42 +36,79 @@ RayEngine::Entity &RayEngine::Entity::WithScale(const Vector2 &scale){
     return *this;
 }
 
+RayEngine::Entity &RayEngine::Entity::WithComponent(Component *component){
+    AddComponent(component);
+    return *this;
+}
+
 void RayEngine::Entity::Start(){
     std::cout << "Starting Entity :: " << Name << '\n';
+    for(auto *component : Components){
+        component->OnStart();
+    }
 }
 
 void RayEngine::Entity::Update(const UpdateContext &context){
-    std::cout << "Updating Entity :: " << Name << '\n';
-    if(context.Input->GetKey(KeyCode::F1, InputState::Pressed)){
-        context.LvlManager->ChangeLevel("Level 1");
+    for(auto *component : Components){
+        component->OnUpdate(context);
     }
-    if(context.Input->GetKey(KeyCode::F2, InputState::Pressed)){
-        context.LvlManager->ChangeLevel("Level 2");
+    for(const std::string &id : ComponentsIDsToRemove){
+        for(int i=0; i < Components.size(); i++){
+            if(Components.at(i)->GetID() == id){
+                Components.at(i)->OnDestroy();
+                Components.erase(Components.begin() + i);
+                break;
+            }
+        }
     }
-    vPosition.x -= std::cos(GetTime() * 15.0f * context.DeltaTime);
-    vPosition.y += std::sin(GetTime() * 15.0f * context.DeltaTime);
+    ComponentsIDsToRemove.clear();
 }
 
 void RayEngine::Entity::Render(const RenderContext &context) const{
-    std::cout << "Rendering Entity :: " << Name << '\n';
-    const Vector2 halfSize = {10.0f * vScale.x, 10.0f * vScale.y};
-    Rectangle rect;
-    rect.x = vPosition.x;
-    rect.y = vPosition.y;
-    rect.width = halfSize.x * 2.0f;
-    rect.height = halfSize.y * 2.0f;
-    DrawRectanglePro(rect, halfSize, fRotation, PURPLE);
+    for(auto *component : Components){
+        component->OnRender(context);
+    }
 }
 
 void RayEngine::Entity::RenderUI(const RenderUiContext &context) const{
-    std::cout << "RenderUI Entity :: " << Name << '\n';
     if(context.bDebug){
         const Vector2 screenPos = GetWorldToScreen2D(Vector2{vPosition.x, vPosition.y}, *context.Camera);
         DrawText(Name.c_str(), screenPos.x, screenPos.y, 16, ORANGE);
     }
+    for(auto *component : Components){
+        component->OnRenderUI(context);
+    }
 }
 
 void RayEngine::Entity::Destroy(){
-    std::cout << "Destroying Entity :: " << Name << '\n';
+    for(auto *component : Components){
+        component->OnDestroy();
+    }
     bDestroyed = true;
 }
+
+void RayEngine::Entity::AddComponent(Component *component){
+    const std::string &id = component->GetID();
+    for(const auto *existiongComponent : Components){
+        if(existiongComponent->GetID() == id){
+            std::cout << "Entity " << Name << " already has a component with ID = " << id << '\n';
+            return;
+        }
+    }
+    component->Init(this);
+    Components.emplace_back(component);
+}
+
+void RayEngine::Entity::RemoveComponent(const std::string &id){
+    ComponentsIDsToRemove.push_back(id);
+}
+
+RayEngine::Component *RayEngine::Entity::GetComponent(const std::string &id) const{
+    for(auto *component : Components){
+        if(component->GetID() == id){
+            return component;
+        }
+    }
+    return nullptr;
+}
+

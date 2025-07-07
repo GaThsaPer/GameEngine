@@ -12,6 +12,8 @@
 #include "Game/Level.h"
 #include "Game/World.h"
 
+#include <iostream>
+
 namespace RayEngine{
 
     struct GameSpec{
@@ -63,7 +65,6 @@ namespace RayEngine{
         private:
             void FKeysFunc();
             void FPSDataCalc(const double deltaTime);
-            void SwimmerMovementUpdate(const double deltaTime);
 
         private:
             bool WindowResized;
