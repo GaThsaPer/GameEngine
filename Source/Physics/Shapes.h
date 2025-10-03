@@ -47,10 +47,16 @@ namespace physic{
 
     class Polygon : public Shapes{
         public:
-            Polygon(Vector2* pts): points(pts) {}
-            ~Polygon() override {}
+            Polygon(Vector2* pts, int size, float v1, float v2);
+            void Update(double deltaTime, Vector2 pos, float rotation);
+            ~Polygon() override;
             bool CheckCollision(Shapes* otherShape, Vector2 position, Vector2 otherPosition) override;
+            void RenderPolygon() const;
         private:
+            float FindMinSeparation(Vector2* a, Vector2* b);
             Vector2* points;
+            float var1;
+            float var2;
+            int iSize;
     };
 }

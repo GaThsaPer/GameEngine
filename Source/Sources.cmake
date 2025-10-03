@@ -4,9 +4,17 @@ file(GLOB COMPONENTS_SOURCE
         "${SOURCE_DIR}/Game/Components/*.cpp"
         "${SOURCE_DIR}/Game/Components/*.hpp"
 )
+file(GLOB MATH
+        "${SOURCE_DIR}/MathLib/*/*.h"
+        "${SOURCE_DIR}/MathLib/*/*.hpp"
+        "${SOURCE_DIR}/MathLib/*/*.cpp"
+)
 
 target_sources(${PROJECT_NAME} PRIVATE
         # ---
+        ${MATH}
+        ${SOURCE_DIR}/MathLib/MathLib.h
+
         ${SOURCE_DIR}/Context.h
 
         ${SOURCE_DIR}/Game/Component.h
@@ -41,6 +49,8 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${SOURCE_DIR}/Game/LevelManager.h
         ${SOURCE_DIR}/Game/World.cpp
         ${SOURCE_DIR}/Game/World.h
+        ${SOURCE_DIR}/Game/WorldManager.cpp
+        ${SOURCE_DIR}/Game/WorldManager.h
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} 

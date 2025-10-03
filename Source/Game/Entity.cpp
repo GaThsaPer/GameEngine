@@ -42,7 +42,6 @@ RayEngine::Entity &RayEngine::Entity::WithComponent(Component *component){
 }
 
 void RayEngine::Entity::Start(){
-    std::cout << "Starting Entity :: " << Name << '\n';
     for(auto *component : Components){
         component->OnStart();
     }

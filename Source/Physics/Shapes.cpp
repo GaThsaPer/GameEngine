@@ -64,11 +64,45 @@ bool physic::Rectangle::CheckCollision(Shapes* otherShape, Vector2 position, Vec
     return false;
 }
 
-// bool physic::Polygon::CheckCollision(Shapes* otherShape, Vector2 position, Vector2 otherPosition){
-//     if(auto circle = dynamic_cast<physic::Circle*>(otherShape)){
-//     }
-//     else if(auto rectangle = dynamic_cast<physic::Rectangle*>(otherShape)){
-//     }
-//     else if(auto polygon = dynamic_cast<physic::Polygon*>(otherShape)){
-//     }
-// }
+physic::Polygon::Polygon(Vector2 *vec, int size, float v1, float v2)
+    : iSize(size), var1(v1), var2(v2){
+        points = new Vector2[size];
+        for(int i=0; i<size; i++)
+            points[i] = vec[i];
+    }
+void physic::Polygon::Update(double deltaTime, Vector2 pos, float rotation){
+    Vector2 *temp = new Vector2 [iSize];
+    if(iSize == 3){
+        temp[0] = {-var2 * 0.5f, var1 * 0.333f};
+        temp[1] = {var2 * 0.5f, var1 * 0.333f};
+        temp[2] = {0, -var1 * 0.667f};
+        float angleRad = rotation * DEG2RAD;
+        for(int i=0; i<3; i++){
+            temp[i] = Vector2Rotate(temp[i], angleRad);
+            temp[i] = Vector2Add(temp[i], pos);
+        }
+    }
+    for(int i=0; i<iSize; i++){
+        points[i] = temp[i];
+    }
+}
+physic::Polygon::~Polygon(){
+    delete[] points;
+}
+
+bool physic::Polygon::CheckCollision(Shapes* otherShape, Vector2 position, Vector2 otherPosition){
+    if(auto circle = dynamic_cast<physic::Circle*>(otherShape)){
+        return false;
+    }
+    else if(auto polygon = dynamic_cast<physic::Polygon*>(otherShape)){
+        return false;
+    }
+    return false;
+}
+
+void physic::Polygon::RenderPolygon() const {
+    for(int i=0; i<iSize - 1; i++){
+        DrawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y, RED);
+    }
+    DrawLine(points[iSize - 1].x, points[iSize - 1].y, points[0].x, points[0].y, RED);
+}

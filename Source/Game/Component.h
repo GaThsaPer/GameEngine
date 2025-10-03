@@ -11,9 +11,9 @@ namespace RayEngine{
             virtual const std::string &GetID() const = 0;
             Entity *GetOwner() const {return owner;}
             virtual void OnStart() {}
-            virtual void OnUpdate(const UpdateContext &context) {}
-            virtual void OnRender(const RenderContext &context) const {}
-            virtual void OnRenderUI(const RenderUiContext &context) const {}
+            virtual void OnUpdate(const RayEngine::UpdateContext &context) {}
+            virtual void OnRender(const RayEngine::RenderContext &context) const {}
+            virtual void OnRenderUI(const RayEngine::RenderUiContext &context) const {}
             virtual void OnDestroy() {}
 
             virtual Component *Clone() const = 0;

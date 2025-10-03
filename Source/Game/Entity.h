@@ -24,6 +24,7 @@ namespace RayEngine{
             void SetRotation(const float rotation) {fRotation = rotation;}
             const Vector2 &GetScale() const {return vScale;}
             void SetScale(const Vector2 &scale) {vScale = scale;}
+            const std::string &GetName() {return Name;}
 
             Entity &WithPosition(const Vector2 &position);
             Entity &WithRotation(const float &rotation);

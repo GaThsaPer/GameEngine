@@ -6,11 +6,13 @@
 
  namespace RayEngine{
     class Game;
+    class WorldManager;
     struct UpdateContext{
         bool bDebug;
         double DeltaTime;
         Input *Input;
         LevelManager *LvlManager;
+        WorldManager *worldManager;
         Camera2D *Camera;
     };
     struct RenderContext{

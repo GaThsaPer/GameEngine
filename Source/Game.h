@@ -23,6 +23,7 @@ namespace RayEngine{
     class Game{
         public:
             Game();
+            virtual ~Game(){}
             void Init(const GameSpec &gameSpec);
             void Run();
             void Shutdown();
@@ -46,6 +47,7 @@ namespace RayEngine{
             World world;
             std::vector<Level> levels;
             LevelManager lvlManager;
+            WorldManager *worldManager;
             bool bLevelChangeRequested;
             std::string levelToLoad;
             Shader m_GrayscaleShader;

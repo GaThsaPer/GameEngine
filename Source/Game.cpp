@@ -1,7 +1,10 @@
 #include "Game.h"
 #include "raymath.h"
+#include "Game/WorldManager.h"
 
-RayEngine::Game::Game(): lvlManager(this) {}
+RayEngine::Game::Game(): lvlManager(this) {
+    worldManager = new WorldManager(&world);
+}
 
 void RayEngine::Game::Init(const GameSpec &gameSpec){
     m_WindowSize = gameSpec.WindowSize;
@@ -27,6 +30,7 @@ void RayEngine::Game::Init(const GameSpec &gameSpec){
     if(!levels.empty()){
         LoadLevel(levels.at(0).GetName());
     }
+    worldManager = new WorldManager(&world);
 
     //FPS Data
     ShowFPS = false;
@@ -60,6 +64,7 @@ void RayEngine::Game::Run(){
             .DeltaTime = deltaTime,
             .Input = &m_Input,
             .LvlManager = &lvlManager,
+            .worldManager = worldManager,
             .Camera = &m_RenderCamera
         };
         Update(updateContext);
@@ -201,6 +206,7 @@ void RayEngine::Game::LoadLevel(const std::string &levelName){
         throw std::runtime_error("\nFailed to load level " + levelName + '\n');
     }
     world.LoadLevel(*levelToLoad);
+    worldManager = new WorldManager(&world);
 }
 void RayEngine::Game::RequestLevelChange(const std::string &levelName){
     levelToLoad = levelName;
