@@ -1,0 +1,32 @@
+Date : 2025-07-12 22:58:18
+Directory : /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components
+Total : 8 files,  339 codes, 6 comments, 23 blanks, all 368 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          8 |        339 |          6 |         23 |        368 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                                    | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                       |          8 |        339 |          6 |         23 |        368 |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                                                | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/BackgroundComponent.hpp     | C++      |         38 |          0 |          1 |         39 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ColliderComponent.hpp       | C++      |         32 |          0 |          1 |         33 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/EnemyMovementComponent.hpp  | C++      |         28 |          0 |          5 |         33 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/EnemyShootComponent.hpp     | C++      |         63 |          0 |          4 |         67 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/PlayerMovementComponent.hpp | C++      |         41 |          1 |          5 |         47 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ShootComponent.hpp          | C++      |         76 |          5 |          4 |         85 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/SpinComponent.hpp           | C++      |         19 |          0 |          1 |         20 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/SpriteComponent.hpp         | C++      |         42 |          0 |          2 |         44 |
+| Total                                                                                                                                                   |          |        339 |          6 |         23 |        368 |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

@@ -1,0 +1,13 @@
+"filename", "language", "C++", "comment", "blank", "total"
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.cpp", "C++", 1, 0, 0, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.h", "C++", 0, 0, 1, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Component.h", "C++", 2, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ColliderComponent.hpp", "C++", 27, 0, 2, 29
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/SpriteComponent.hpp", "C++", 3, 0, 0, 3
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Entity.cpp", "C++", -1, 0, 0, -1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Level.cpp", "C++", -1, 0, 0, -1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.cpp", "C++", 16, -2, 0, 14
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.h", "C++", 2, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.h", "C++", 2, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/UserGame.hpp", "C++", 2, -1, 1, 2
+"Total", "-", 53, -3, 4, 54

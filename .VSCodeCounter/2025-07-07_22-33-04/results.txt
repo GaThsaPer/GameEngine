@@ -1,0 +1,60 @@
+Date : 2025-07-07 22:33:04
+Directory : /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source
+Total : 28 files,  1223 codes, 33 comments, 148 blanks, all 1404 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         26 |      1,161 |         33 |        133 |      1,327 |
+| CMake    |          2 |         62 |          0 |         15 |         77 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                 |         28 |      1,223 |         33 |        148 |      1,404 |
+| . (Files)                                                                                                                                         |          7 |        367 |         21 |         53 |        441 |
+| Game                                                                                                                                              |         12 |        385 |          0 |         45 |        430 |
+| Game (Files)                                                                                                                                      |          9 |        297 |          0 |         40 |        337 |
+| Game/Components                                                                                                                                   |          3 |         88 |          0 |          5 |         93 |
+| Input                                                                                                                                             |          3 |        173 |          0 |         11 |        184 |
+| Physics                                                                                                                                           |          4 |        187 |         12 |         31 |        230 |
+| Visuals                                                                                                                                           |          2 |        111 |          0 |          8 |        119 |
++---------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                                          | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/CMakeLists.txt                        | CMake    |         21 |          0 |          5 |         26 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Context.h                             | C++      |         23 |          0 |          2 |         25 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.cpp                              | C++      |        183 |         10 |         17 |        210 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.h                                | C++      |         64 |          1 |         12 |         77 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Component.h                      | C++      |         23 |          0 |          3 |         26 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ColliderComponent.hpp | C++      |         27 |          0 |          2 |         29 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/SpinComponent.hpp     | C++      |         19 |          0 |          1 |         20 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/SpriteComponent.hpp   | C++      |         42 |          0 |          2 |         44 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Entity.cpp                       | C++      |         99 |          0 |         16 |        115 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Entity.h                         | C++      |         46 |          0 |          7 |         53 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Level.cpp                        | C++      |         15 |          0 |          3 |         18 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Level.h                          | C++      |         19 |          0 |          1 |         20 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/LevelManager.cpp                 | C++      |          8 |          0 |          1 |          9 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/LevelManager.h                   | C++      |         12 |          0 |          1 |         13 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.cpp                        | C++      |         56 |          0 |          6 |         62 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.h                          | C++      |         19 |          0 |          2 |         21 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/Input.cpp                       | C++      |         41 |          0 |          5 |         46 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/Input.h                         | C++      |         18 |          0 |          2 |         20 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Input/InputCodes.h                    | C++      |        114 |          0 |          4 |        118 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Main.cpp                              | C++      |          8 |          0 |          4 |         12 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.cpp                      | C++      |         56 |          0 |         10 |         66 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.h                        | C++      |         30 |          0 |          4 |         34 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Shapes.cpp                    | C++      |         50 |         12 |         12 |         74 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Shapes.h                      | C++      |         51 |          0 |          5 |         56 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Sources.cmake                         | CMake    |         41 |          0 |         10 |         51 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/UserGame.hpp                          | C++      |         27 |         10 |          3 |         40 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Visuals/AnimatedSprite.cpp            | C++      |         67 |          0 |          6 |         73 |
+| /Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Visuals/AnimatedSprite.h              | C++      |         44 |          0 |          2 |         46 |
+| Total                                                                                                                                             |          |      1,223 |         33 |        148 |      1,404 |
++---------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

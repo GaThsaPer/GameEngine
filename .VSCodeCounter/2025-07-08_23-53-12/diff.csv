@@ -1,0 +1,21 @@
+"filename", "language", "C++", "CMake", "comment", "blank", "total"
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Context.h", "C++", 2, 0, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.cpp", "C++", 6, 0, 0, 0, 6
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game.h", "C++", 2, 0, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/BackgroundComponent.hpp", "C++", 0, 0, 0, 1, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ColliderComponent.hpp", "C++", 8, 0, 0, -1, 7
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/EnemyMovementComponent.hpp", "C++", 28, 0, 0, 5, 33
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/EnemyShootComponent.hpp", "C++", 63, 0, 5, 4, 72
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/PlayerMovementComponent.hpp", "C++", 41, 0, 1, 5, 47
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Components/ShootComponent.hpp", "C++", 59, 0, 5, 4, 68
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Entity.cpp", "C++", -1, 0, 0, 0, -1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/Entity.h", "C++", 1, 0, 0, 0, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.cpp", "C++", 26, 0, 12, 4, 42
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/World.h", "C++", 2, 0, 1, 1, 4
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/WorldManager.cpp", "C++", 8, 0, 0, 2, 10
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Game/WorldManager.h", "C++", 14, 0, 0, 2, 16
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.cpp", "C++", 0, 0, 0, 1, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Physics/Body.h", "C++", 1, 0, 0, 0, 1
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/Sources.cmake", "CMake", 0, 2, 0, 0, 2
+"/Users/user/Documents/Uczelnia/_4Czwarty Semestr/Silniki do gier/R_Projcet/RayEngine_Project_Minimal/Source/UserGame.hpp", "C++", 18, 0, -4, 0, 14
+"Total", "-", 278, 2, 20, 28, 328
